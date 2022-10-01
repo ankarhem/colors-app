@@ -71,7 +71,7 @@
 </script>
 
 <main>
-  <h1>Convert Format Converter</h1>
+  <h1>Color Format Converter</h1>
 
   <div class="pickers">
     <div class="canvas" style="--color: {$colors.hex};">
