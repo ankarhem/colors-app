@@ -4,7 +4,7 @@ import { colord } from "colord";
 export const background = writable<string>(
   localStorage.getItem("background")
     ? JSON.parse(localStorage.getItem("background"))
-    : "#242424"
+    : "#e9e4e6"
 );
 
 background.subscribe((bg) => {
@@ -18,10 +18,11 @@ export const foreground = derived(background, ($background) => {
     : color.darken(0.5).toHex();
 });
 
+const initialValue = "#fb91e985";
 const initialState = {
-  hex: "#535bf2f0",
-  hsl: "hsla(237, 86%, 64%, 0.94)",
-  rgb: "rgba(83, 91, 242, 0.94)",
+  hex: initialValue,
+  hsl: colord(initialValue).toHslString(),
+  rgb: colord(initialValue).toRgbString(),
 };
 
 export const colors = writable<typeof initialState>(
