@@ -1,0 +1,39 @@
+:root {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  padding-top: 3rem;
+}
+
+@media (min-width: 1200px) {
+  body {
+    padding: 0;
+    min-height: 100vh;
+  }
+}
+
+#app {
+  width: 100%;
+}
+
+:root {
+  font-family: Fira Code, Inter, Avenir, Helvetica, Arial, sans-serif;
+}
+
+input {
+  box-sizing: border-box;
+}
