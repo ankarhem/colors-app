@@ -202,7 +202,7 @@
 
   @media (min-width: 1200px) {
     .pickers {
-      margin: 2.5rem;
+      margin: 2.5rem 2.5rem 1rem 2.5rem;
     }
 
     .container {
