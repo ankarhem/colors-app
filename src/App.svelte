@@ -71,7 +71,7 @@
 
   const handleCopy = (value: string) => {
     const valueToCopy =
-      value.includes('(') && $settings.copyWithFunction
+      value.includes('(') && !$settings.copyWithFunction
         ? value.replace(/.*\((.*)\).*/, '$1')
         : value;
 
