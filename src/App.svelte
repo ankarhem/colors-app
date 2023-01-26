@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { background, colors, foreground } from "./colors";
-  import { colord } from "colord";
+  import { background, colors, foreground, settings } from './colors';
+  import { colord } from 'colord';
 
   background.subscribe((bg) => {
     document.body.style.backgroundColor = bg;
@@ -68,6 +68,15 @@
       };
     });
   };
+
+  const handleCopy = (value: string) => {
+    const valueToCopy =
+      value.includes('(') && $settings.copyWithFunction
+        ? value.replace(/.*\((.*)\).*/, '$1')
+        : value;
+
+    navigator.clipboard.writeText(valueToCopy);
+  };
 </script>
 
 <main>
@@ -108,34 +117,64 @@
       />
       <label for="background-text-input"> Background hex input </label>
       <input id="background" type="text" bind:value={$background} />
+      <label for="copy-setting">Copy values with function call</label>
+      <input
+        id="copy-setting"
+        type="checkbox"
+        bind:checked={$settings.copyWithFunction}
+      />
     </div>
     <div>
-      <label for="hex">hex</label>
-      <input
-        id="hex"
-        type="text"
-        value={$colors.hex}
-        on:input={handleChanged}
-        aria-invalid={!colord($colors.hex).isValid()}
-      />
+      <div class="input-wrapper">
+        <label for="hex">hex</label>
+        <input
+          id="hex"
+          type="text"
+          value={$colors.hex.replace(/,/g, '')}
+          on:input={handleChanged}
+          aria-invalid={!colord($colors.hex).isValid()}
+        />
+        <button
+          on:click={() => handleCopy($colors.hex.replace(/,/g, ''))}
+          disabled={!colord($colors.hex).isValid()}
+        >
+          Copy
+        </button>
+      </div>
 
-      <label for="hsl"> hsl </label>
-      <input
-        id="hsl"
-        type="text"
-        value={$colors.hsl}
-        on:input={handleChanged}
-        aria-invalid={!colord($colors.hsl).isValid()}
-      />
+      <div class="input-wrapper">
+        <label for="hsl"> hsl </label>
+        <input
+          id="hsl"
+          type="text"
+          value={$colors.hsl.replace(/,/g, '')}
+          on:input={handleChanged}
+          aria-invalid={!colord($colors.hsl).isValid()}
+        />
+        <button
+          on:click={() => handleCopy($colors.hsl.replace(/,/g, ''))}
+          disabled={!colord($colors.hsl).isValid()}
+        >
+          Copy
+        </button>
+      </div>
 
-      <label for="rgb"> rgb </label>
-      <input
-        id="rgb"
-        type="text"
-        value={$colors.rgb}
-        on:input={handleChanged}
-        aria-invalid={!colord($colors.rgb).isValid()}
-      />
+      <div class="input-wrapper">
+        <label for="rgb"> rgb </label>
+        <input
+          id="rgb"
+          type="text"
+          value={$colors.rgb.replace(/,/g, '')}
+          on:input={handleChanged}
+          aria-invalid={!colord($colors.rgb).isValid()}
+        />
+        <button
+          on:click={() => handleCopy($colors.rgb.replace(/,/g, ''))}
+          disabled={!colord($colors.rgb).isValid()}
+        >
+          Copy
+        </button>
+      </div>
     </div>
   </div>
 </main>
@@ -160,7 +199,7 @@
     margin-bottom: 0.5rem;
   }
 
-  input[aria-invalid="true"] {
+  input[aria-invalid='true'] {
     border: 2px solid red;
   }
 
@@ -177,6 +216,10 @@
 
   .container input {
     width: 100%;
+  }
+
+  .container input[type='checkbox'] {
+    width: auto;
   }
 
   .pickers {
@@ -207,9 +250,20 @@
 
     .container {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
       grid-template-columns: 1fr 1fr;
+      gap: 2rem;
     }
+  }
+
+  .input-wrapper {
+    position: relative;
+  }
+
+  .input-wrapper button {
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    padding: 2.5px;
+    margin-left: 0.25rem;
   }
 </style>
